@@ -1,0 +1,21 @@
+services:
+  slugbot:
+    build: .
+    container_name: slugbot-bot
+    volumes:
+      - "./config.toml:/app/config.toml"
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: slugbot-clickhouse
+    environment:
+      CLICKHOUSE_DB: "slugbot"
+      CLICKHOUSE_USER: "slugbot"
+      CLICKHOUSE_PASSWORD: "slugbot"
+    volumes:
+      - "./db-data:/var/lib/clickhouse"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s

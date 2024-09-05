@@ -1,0 +1,17 @@
+# Debug log output
+debug = true
+# Channels to log
+channels = ["forsen", "psp1g"]
+
+# Helix application details
+[helix]
+clientid = "myclientid"
+clientsecret = "freshclientsecret"
+
+# Clickhouse DB details
+[clickhouse]
+# If you are using Docker Compose, you can use the container name as the hostname (slugbot-clickhouse by default).
+host = "127.0.0.1:9000"
+database = "slugbot"
+user = "slugbot"
+password = "slugbot"
